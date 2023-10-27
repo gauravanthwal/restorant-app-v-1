@@ -7,8 +7,8 @@ const CartPage = () => {
       {/* Products Container */}
       <div className="wrapper-2 p-4 flex flex-col gap-4 justify-center flex-1 lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-10 xl:px-20">
         {/* Single Item */}
-        {[1, 1, 2].map((item) => (
-          <div className="flex items-center justify-between">
+        {[1, 1, 2].map((item, i) => (
+          <div key={i} className="flex items-center justify-between">
             <Image
               src={"/temporary/p1.png"}
               alt=""

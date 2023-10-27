@@ -23,8 +23,8 @@ const OrdersPage = () => {
             </td>
             <td className="py-6 px-1">On the way (approx. 10min)...</td>
           </tr>
-          {[1, 1, 1, 1, 1].map((item) => (
-            <tr className="text-sm md:text-base odd:bg-gray-100">
+          {[1, 1, 1, 1, 1].map((item, i) => (
+            <tr key={i} className="text-sm md:text-base odd:bg-gray-100">
               <td className="hidden md:block py-6 px-1">1237861238721</td>
               <td className="py-6 px-1">19.07.2023</td>
               <td className="py-6 px-1">89.90</td>
