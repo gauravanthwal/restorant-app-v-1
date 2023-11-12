@@ -1,8 +1,26 @@
+"use client";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const LoginPage = () => {
+  const [formValue, setFormValue] = useState({ email: "", password: "" });
+  const { email, password } = formValue;
+
+  const onChange = (e: any) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+
+  const onsubmit = async(e:any) =>{
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/api/v1/user/login", formValue)
+    } catch (err) {
+      
+    }
+
+  }
   return (
     <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
       {/* Box  */}
@@ -16,18 +34,20 @@ const LoginPage = () => {
           <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
           <p>Log into your account or create a new one using social buttons</p>
 
-          <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md">
-            <Image
-              src={"/google.png"}
-              alt=""
-              width={20}
-              height={20}
-              className="object-contain"
-            />
-            <span>Sign in with Google</span>
+          <button className="flex ring-1 ring-orange-100 rounded-md ">
+            <div className="flex justify-center items-center h-full py-2 px-4">
+              <Image
+                src={"/google.png"}
+                alt=""
+                width={30}
+                height={30}
+                className="object-contain"
+              />
+            </div>
+            <div className="bg-blue-500 hover:opacity-90 text-white w-full p-4 rounded-tr-md rounded-br-md">Sign in with Google</div>
           </button>
 
-          <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
+          {/* <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
             <Image
               src={"/facebook.png"}
               alt=""
@@ -36,8 +56,51 @@ const LoginPage = () => {
               className="object-contain"
             />
             <span>Sign in with Facebook</span>
-          </button>
+          </button> */}
 
+          <div className="">
+            <p className="text-center">
+              <span className="border-gray-300 border-b">
+                Or Sign in with Email
+              </span>
+            </p>
+          </div>
+
+          <form onSubmit={onsubmit}>
+            <div className="my-2">
+              <label htmlFor="email">Email</label>
+              <input
+                className="border block w-full px-6 py-4 rounded-md"
+                type="text"
+                value={email}
+                id="email"
+                name="email"
+                placeholder="john.doe@gmail.com"
+                onChange={onChange}
+              />
+            </div>
+            <div className="my-4">
+              <label htmlFor="password">Password</label>
+              <input
+                className="border block w-full px-6 py-4 rounded-md"
+                type="password"
+                value={password}
+                id="password"
+                name="password"
+                placeholder="password"
+                onChange={onChange}
+              />
+            </div>
+            <button type="submit" className="flex w-full gap-4 p-4 bg-gray-500 hover:bg-blue-500 transition-all ease-in-out rounded-md justify-center">
+              <span className="text-white font-bold">Sign in</span>
+            </button>
+          </form>
+
+          <p className="text-sm text-right hover:text-blue-500">
+            <Link className="underline" href="/register">
+            Create Account
+            </Link>
+          </p>
           <p className="text-sm">
             Have a problem?
             <Link className="underline" href="/">
