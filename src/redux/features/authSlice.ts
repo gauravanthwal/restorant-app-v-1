@@ -1,29 +1,68 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  AsyncThunk,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import axios from "axios";
+
+import { loginService } from "@/services/userService";
+import { clearStorage, setInStorage } from "@/config/storageConfig";
 
 type InitialState = {
   isAuth: boolean;
-  userInfo: any;
+  user: any;
 };
 const initialState = {
   isAuth: false,
-  userInfo: {},
+  user: {},
 } as InitialState;
 
 export const auth = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<{}>) => {
-      return {
-        isAuth: true,
-        userInfo: action.payload,
-      };
+    getTokenFromStorage: (state, action: PayloadAction<{}>) => {
+      setInStorage("accessToken", action?.payload);
+
+      state.user.token = action.payload;
+      state.isAuth = true;
     },
     logout: () => {
+      clearStorage();
       return initialState;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.user.token = action?.payload?.token;
+      state.isAuth = true;
+
+      setInStorage("accessToken", action?.payload?.token);
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state = initialState;
+    });
+  },
 });
 
-export const { login, logout } = auth.actions;
+export const loginUser: any = createAsyncThunk(
+  "loginUser",
+  async (userInfo) => {
+    return loginService(userInfo);
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "registerUser",
+  async (userInfo) => {
+    const res = await axios.post(
+      "http://localhost:5000/api/v1/user/login",
+      userInfo
+    );
+    return res?.data;
+  }
+);
+
+export const { getTokenFromStorage, logout } = auth.actions;
 export default auth.reducer;

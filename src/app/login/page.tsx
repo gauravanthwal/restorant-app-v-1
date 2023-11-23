@@ -1,10 +1,15 @@
 "use client";
-import axios from "axios";
+import { loginUser } from "@/redux/features/authSlice";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { isAuth } = useSelector((state: any) => state.auth);
   const [formValue, setFormValue] = useState({ email: "", password: "" });
   const { email, password } = formValue;
 
@@ -12,15 +17,19 @@ const LoginPage = () => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const onsubmit = async(e:any) =>{
+  const onsubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/v1/user/login", formValue)
-    } catch (err) {
-      
-    }
+      dispatch(loginUser(formValue));
+    } catch (err) {}
+  };
 
-  }
+  useEffect(() => {
+    if (isAuth) {
+      router.push("/");
+    }
+  }, [isAuth]);
+
   return (
     <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
       {/* Box  */}
@@ -44,7 +53,9 @@ const LoginPage = () => {
                 className="object-contain"
               />
             </div>
-            <div className="bg-blue-500 hover:opacity-90 text-white w-full p-4 rounded-tr-md rounded-br-md">Sign in with Google</div>
+            <div className="bg-blue-500 hover:opacity-90 text-white w-full p-4 rounded-tr-md rounded-br-md">
+              Sign in with Google
+            </div>
           </button>
 
           {/* <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
@@ -91,14 +102,17 @@ const LoginPage = () => {
                 onChange={onChange}
               />
             </div>
-            <button type="submit" className="flex w-full gap-4 p-4 bg-gray-500 hover:bg-blue-500 transition-all ease-in-out rounded-md justify-center">
+            <button
+              type="submit"
+              className="flex w-full gap-4 p-4 bg-gray-500 hover:bg-blue-500 transition-all ease-in-out rounded-md justify-center"
+            >
               <span className="text-white font-bold">Sign in</span>
             </button>
           </form>
 
           <p className="text-sm text-right hover:text-blue-500">
             <Link className="underline" href="/register">
-            Create Account
+              Create Account
             </Link>
           </p>
           <p className="text-sm">
