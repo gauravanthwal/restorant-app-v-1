@@ -42,9 +42,9 @@ const Navbar = () => {
           <>
             <Link href={"/orders"}>Orders</Link>
             <button onClick={logoutUser} className="uppercase">Logout</button>
+            <CartIcon />
           </>
         )}
-        <CartIcon />
       </div>
     </div>
   );

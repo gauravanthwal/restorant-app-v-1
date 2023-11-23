@@ -1,13 +1,17 @@
 "use client";
+import { addToCart } from "@/redux/features/cartSlice";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 type Props = {
   price: number;
   id: number;
   options?: { title: string; additionalPrice: number }[];
+  item: {}
 };
 
-const Price = ({ price, id, options }: Props) => {
+const Price = ({ price, id, options, item }: Props) => {
+  const dispatch = useDispatch()
   const [total, setTotal] = useState(price);
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
@@ -17,6 +21,10 @@ const Price = ({ price, id, options }: Props) => {
       quantity * (options ? price + options[selected].additionalPrice : price)
     );
   }, [quantity, selected, options, price]);
+
+  const addToCartItem = ()=>{
+    dispatch(addToCart({item, total, quantity, selected}))
+  }
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-2xl font-bold">{total.toFixed(2)}</h2>
@@ -57,7 +65,7 @@ const Price = ({ price, id, options }: Props) => {
           </div>
         </div>
         {/* Cart Button */}
-        <button className="bg-red-500 w-56  uppercase text-white p-3 ring-1 ring-red-500">
+        <button className="bg-red-500 w-56  uppercase text-white p-3 ring-1 ring-red-500" onClick={addToCartItem}>
           Add to Cart
         </button>
       </div>

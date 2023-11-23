@@ -1,9 +1,12 @@
+"use client";
 import { pizzas } from "@/data/data";
+import { addToCart } from "@/redux/features/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const CategoryPage = () => {
+
   return (
     <div className="flex flex-wrap text-red-500">
       {pizzas.map((item) => (
@@ -21,10 +24,14 @@ const CategoryPage = () => {
           {/* Text Container */}
           <div className="flex items-center justify-between font-bold">
             <h1 className="text-2xl uppercase p-2">{item.title}</h1>
-            <p className="group-hover:hidden text-xl">${item.price}</p>
-            <button className="hidden group-hover:block uppercase bg-red-500 text-white p-2 rounded-md">
+            {/* <p className="group-hover:hidden text-xl">${item.price}</p> */}
+            <p className="text-xl">${item.price}</p>
+            {/* <button
+              onClick={() => addToCartItem(item)}
+              className="hidden group-hover:block uppercase bg-red-500 text-white p-2 rounded-md"
+            >
               Add to Cart
-            </button>
+            </button> */}
           </div>
         </Link>
       ))}

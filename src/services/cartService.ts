@@ -1,9 +1,9 @@
-import { axiosClient } from "@/config/fetchConfig";
+import { axiosClient, axiosClientWithHeaders } from "@/config/fetchConfig";
 
 
-export const loginService = async (userInfo: any) => {
+export const fetchCartService = async () => {
   try {
-    const res = await axiosClient.post(`/user/login`, userInfo);
+    const res = await axiosClientWithHeaders.get(`/cart/getByUser`);
     console.log(res);
 
     return res?.data;

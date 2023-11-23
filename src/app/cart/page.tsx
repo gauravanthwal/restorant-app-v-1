@@ -1,36 +1,54 @@
+"use client";
+import { addToCart, fetchCartItems } from "@/redux/features/cartSlice";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartPage = () => {
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state: any) => state.cart);
+
+  const calculateTotalPrice = ()=>{
+    return cartItems.reduce((sum: number, item: any)=>sum + (item.product.price * item.quantity), 0)
+  }
+
+  useEffect(() => {
+    dispatch(fetchCartItems());
+  },[]);
   return (
     <div className="flex flex-col text-red-500 lg:flex-row">
       {/* Products Container */}
       <div className="wrapper-2 p-4 flex flex-col gap-4 justify-center flex-1 lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-10 xl:px-20">
         {/* Single Item */}
-        {[1, 1, 2].map((item, i) => (
-          <div key={i} className="flex items-center justify-between">
-            <Image
-              src={"/temporary/p1.png"}
-              alt=""
-              width={100}
-              height={100}
-              className=""
-            />
-            <div className="">
-              <h1 className="uppercase text-xl font-bold">sicilian</h1>
-              <span>Large</span>
+        {cartItems &&
+          cartItems.map((item: any, i: number) => (
+            <div key={i} className="flex items-center justify-between">
+              <Image
+                src={`${
+                  item?.product?.product_photo
+                    ? item?.product?.product_photo
+                    : "/temporary/p1.png"
+                }`}
+                alt=""
+                width={100}
+                height={100}
+                className=""
+              />
+              <div className="">
+                <h1 className="uppercase text-xl font-bold">{item?.product?.product_name}</h1>
+                <span>Qty: {item.quantity}</span>
+              </div>
+              <h2 className="font-bold">${item?.product?.price?.toFixed(2)}</h2>
+              <span className="cursor-pointer">X</span>
             </div>
-            <h2 className="font-bold">$79.00</h2>
-            <span className="cursor-pointer">X</span>
-          </div>
-        ))}
+          ))}
       </div>
 
       {/* Payments Container */}
       <div className=" h-1/2 p-4 bg-fuchsia-50 flex flex-col gap-4 justify-center lg:h-full lg:w-1/3 2xl:w-1/2 lg:px-10 xl:px-20">
         <div className="flex justify-between">
-          <span>Subtotal (3 items)</span>
-          <span>$81.00</span>
+          <span>Subtotal ({cartItems.length} items)</span>
+          <span>${calculateTotalPrice()?.toFixed(2)}</span>
         </div>
         <div className="flex justify-between">
           <span>Service Cost</span>
