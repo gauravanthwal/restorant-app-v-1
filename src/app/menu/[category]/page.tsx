@@ -1,6 +1,4 @@
 "use client";
-import { pizzas } from "@/data/data";
-import { addToCart } from "@/redux/features/cartSlice";
 import { getProducts } from "@/redux/features/productSlice";
 import Image from "next/image";
 import Link from "next/link";
