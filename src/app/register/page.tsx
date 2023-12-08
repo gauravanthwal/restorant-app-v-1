@@ -23,7 +23,7 @@ const RegisterPage = () => {
     e.preventDefault();
   };
   return (
-    <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
+    <div className="p-4 h-[100vh] flex items-center justify-center">
       {/* Box  */}
       <div className="h-full md:w-[70%] shadow-2xl rounded-md flex flex-col md:flex-row">
         {/* Image Container */}
@@ -33,14 +33,14 @@ const RegisterPage = () => {
         {/* Form Container */}
         <div className="p-10 flex flex-col gap-8 md:w-1/2">
           <h1 className="font-bold text-xl xl:text-3xl">Sign Up</h1>
-          <p>register new account using social buttons</p>
+          <p>Register new account using social buttons</p>
 
           <form onSubmit={onsubmit}>
             <div className="my-4 flex flex-col md:flex-row justify-between gap-2">
               <div className="">
                 <label htmlFor="first_name">First Name</label>
                 <input
-                  className="border block w-full px-6 py-4 rounded-md"
+                  className="border block w-full px-6 py-4 border-black outline-none"
                   type="text"
                   value={first_name}
                   id="first_name"
@@ -52,7 +52,7 @@ const RegisterPage = () => {
               <div className="">
                 <label htmlFor="last_name">Last Name</label>
                 <input
-                  className="border block w-full px-6 py-4 rounded-md"
+                  className="border block w-full px-6 py-4 border-black outline-none"
                   type="text"
                   value={last_name}
                   id="last_name"
@@ -71,7 +71,7 @@ const RegisterPage = () => {
                   </span>
                 </label>
                 <input
-                  className="border block w-full px-6 py-4 rounded-md"
+                  className="border block w-full px-6 py-4 border-black outline-none"
                   type="text"
                   value={phone}
                   id="phone"
@@ -88,7 +88,7 @@ const RegisterPage = () => {
                   </span>
                 </label>
                 <input
-                  className="border block w-full px-6 py-4 rounded-md"
+                  className="border block w-full px-6 py-3 border-black outline-none"
                   type="file"
                   value={profile_photo}
                   id="profile_photo"
@@ -101,7 +101,7 @@ const RegisterPage = () => {
             <div className="my-2">
               <label htmlFor="email">Email</label>
               <input
-                className="border block w-full px-6 py-4 rounded-md"
+                className="border block w-full px-6 py-4 border-black outline-none"
                 type="text"
                 value={email}
                 id="email"
@@ -113,7 +113,7 @@ const RegisterPage = () => {
             <div className="my-4">
               <label htmlFor="password">Password</label>
               <input
-                className="border block w-full px-6 py-4 rounded-md"
+                className="border block w-full px-6 py-4 border-black outline-none"
                 type="password"
                 value={password}
                 id="password"
@@ -122,7 +122,7 @@ const RegisterPage = () => {
                 onChange={onChange}
               />
             </div>
-            <button className="flex w-full gap-4 p-4 bg-gray-500 hover:bg-red-500 transition-all ease-in-out rounded-md justify-center">
+            <button className="flex w-full gap-4 p-4 bg-gray-800 hover:bg-gray-700 transition-all ease-in-out border-black outline-none justify-center">
               <span className="text-white font-bold">Register</span>
             </button>
           </form>

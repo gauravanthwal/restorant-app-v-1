@@ -1,35 +1,37 @@
 "use client";
-import { addToCart } from "@/redux/features/cartSlice";
+import { addCartToDB } from "@/redux/features/cartSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 type Props = {
   price: number;
   id: number;
-  options?: { title: string; additionalPrice: number }[];
-  item: {}
+  item: any;
 };
 
-const Price = ({ price, id, options, item }: Props) => {
-  const dispatch = useDispatch()
+const Price = ({ price, id, item }: Props) => {
+  const dispatch = useDispatch();
+
   const [total, setTotal] = useState(price);
   const [quantity, setQuantity] = useState(1);
-  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    setTotal(
-      quantity * (options ? price + options[selected].additionalPrice : price)
-    );
-  }, [quantity, selected, options, price]);
+    setTotal(Number(quantity * price));
+  }, [quantity, price]);
 
-  const addToCartItem = ()=>{
-    dispatch(addToCart({item, total, quantity, selected}))
-  }
+  const addToCartItem = () => {
+    // dispatch(addToCart({ item, total, quantity }));
+    const payload = {
+      product: item._id,
+      quantity
+    }
+    dispatch(addCartToDB(payload))
+  };
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">{total.toFixed(2)}</h2>
+      <h2 className="text-2xl font-bold">${total}</h2>
       {/* Options Container */}
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         {options &&
           options.map((option, index) => (
             <button
@@ -44,7 +46,7 @@ const Price = ({ price, id, options, item }: Props) => {
               {option.title}
             </button>
           ))}
-      </div>
+      </div> */}
       {/* Quantity and Add button Container */}
       <div className="flex justify-between items-center">
         {/* Quantity */}
@@ -65,7 +67,10 @@ const Price = ({ price, id, options, item }: Props) => {
           </div>
         </div>
         {/* Cart Button */}
-        <button className="bg-red-500 w-56  uppercase text-white p-3 ring-1 ring-red-500" onClick={addToCartItem}>
+        <button
+          className="bg-red-500 w-56  uppercase text-white p-3 ring-1 ring-red-500"
+          onClick={addToCartItem}
+        >
           Add to Cart
         </button>
       </div>

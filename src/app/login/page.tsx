@@ -28,14 +28,14 @@ const LoginPage = () => {
     if (isAuth) {
       router.push("/");
     }
-  }, [isAuth]);
+  }, [isAuth, router]);
 
   return (
-    <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
+    <div className="p-4 h-[100vh] flex items-center justify-center">
       {/* Box  */}
-      <div className="h-full md:w-[70%] shadow-2xl rounded-md flex flex-col md:flex-row">
+      <div className="h-full md:w-[70%] shadow-2xl flex flex-col md:flex-row">
         {/* Image Container */}
-        <div className="relative h-1/3 w-full md:h-full md:w-1/2">
+        <div className="relative h-full w-full md:h-full md:w-1/2">
           <Image src={"/loginBg.png"} alt="" fill className="object-cover" />
         </div>
         {/* Form Container */}
@@ -43,7 +43,7 @@ const LoginPage = () => {
           <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
           <p>Log into your account or create a new one using social buttons</p>
 
-          <button className="flex ring-1 ring-orange-100 rounded-md ">
+          <button className="flex ring-1 ring-orange-100 border border-black">
             <div className="flex justify-center items-center h-full py-2 px-4">
               <Image
                 src={"/google.png"}
@@ -53,21 +53,10 @@ const LoginPage = () => {
                 className="object-contain"
               />
             </div>
-            <div className="bg-blue-500 hover:opacity-90 text-white w-full p-4 rounded-tr-md rounded-br-md">
+            <div className="bg-blue-500 hover:opacity-90 text-gray-100 w-full p-4">
               Sign in with Google
             </div>
           </button>
-
-          {/* <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
-            <Image
-              src={"/facebook.png"}
-              alt=""
-              width={20}
-              height={20}
-              className="object-contain"
-            />
-            <span>Sign in with Facebook</span>
-          </button> */}
 
           <div className="">
             <p className="text-center">
@@ -81,7 +70,7 @@ const LoginPage = () => {
             <div className="my-2">
               <label htmlFor="email">Email</label>
               <input
-                className="border block w-full px-6 py-4 rounded-md"
+                className="border block w-full px-6 py-4 border-black outline-none"
                 type="text"
                 value={email}
                 id="email"
@@ -93,7 +82,7 @@ const LoginPage = () => {
             <div className="my-4">
               <label htmlFor="password">Password</label>
               <input
-                className="border block w-full px-6 py-4 rounded-md"
+                className="border block w-full px-6 py-4 border-black outline-none"
                 type="password"
                 value={password}
                 id="password"
@@ -104,7 +93,7 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
-              className="flex w-full gap-4 p-4 bg-gray-500 hover:bg-blue-500 transition-all ease-in-out rounded-md justify-center"
+              className="flex w-full gap-4 p-4 bg-gray-800 hover:bg-gray-700 transition-all ease-in-out  justify-center"
             >
               <span className="text-white font-bold">Sign in</span>
             </button>

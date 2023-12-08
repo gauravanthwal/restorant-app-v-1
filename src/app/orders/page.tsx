@@ -1,42 +1,48 @@
-import React from "react";
+"use client";
+import PrivateRoute from "@/components/auth/PrivateRoute";
+import { fetchOrders } from "@/redux/features/orderSlice";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const OrdersPage = () => {
+  const dispatch = useDispatch();
+
+  const { myOrders } = useSelector((state: any) => state.order);
+
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, []);
   return (
-    <div className="p-4 lg:px-10 xl:px-20">
-      <table className="w-full border-separate border-spacing-3">
-        <thead>
-          <tr className="text-left">
-            <th className="hidden md:block">Order Id</th>
-            <th>Date</th>
-            <th>Price</th>
-            <th className="hidden md:block">product</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="text-sm md:text-base bg-red-50">
-            <td className="hidden md:block py-6 px-1">1237861238721</td>
-            <td className="py-6 px-1">19.07.2023</td>
-            <td className="py-6 px-1">89.90</td>
-            <td className="hidden md:block py-6 px-1">
-              Big Burger Menu (2), Veggie Pizza (2), Coca Cola 1L (2)
-            </td>
-            <td className="py-6 px-1">On the way (approx. 10min)...</td>
-          </tr>
-          {[1, 1, 1, 1, 1].map((item, i) => (
-            <tr key={i} className="text-sm md:text-base odd:bg-gray-100">
-              <td className="hidden md:block py-6 px-1">1237861238721</td>
-              <td className="py-6 px-1">19.07.2023</td>
-              <td className="py-6 px-1">89.90</td>
-              <td className="hidden md:block py-6 px-1">
-                Big Burger Menu (2), Veggie Pizza (2), Coca Cola 1L (2)
-              </td>
-              <td className="py-6 px-1">On the way (approx. 10min)...</td>
+    <PrivateRoute>
+      <div className="p-4 lg:px-10 xl:px-20">
+        <table className="w-full border-separate border-spacing-3">
+          <thead>
+            <tr className="text-left">
+              <th className="hidden md:block">Order Id</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th className="hidden md:block">product</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {myOrders &&
+              myOrders.length > 0 &&
+              myOrders.map((order:any) => (
+                <tr key={order._id} className="text-sm md:text-base odd:bg-gray-100">
+                  <td className="hidden md:block py-6 px-1">{order._id}</td>
+                  <td className="py-6 px-1">{new Date(order.createdAt).toDateString()}</td>
+                  <td className="py-6 px-1">${order.product.price}</td>
+                  <td className="hidden md:block py-6 px-1">
+                    {order.product.product_name}, {order.quantity}qty
+                  </td>
+                  <td className="py-6 px-1">{order.order_status} (approx. 2Hrs)...</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </PrivateRoute>
   );
 };
 

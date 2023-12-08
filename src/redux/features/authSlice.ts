@@ -35,10 +35,15 @@ export const auth = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.user.token = action?.payload?.token;
-      state.isAuth = true;
+      console.log(action);
 
-      setInStorage("accessToken", action?.payload?.token);
+      if (action?.payload?.success && action?.payload?.token) {
+        state.user.token = action?.payload?.token;
+        state.isAuth = true;
+        setInStorage("accessToken", action?.payload?.token);
+      } else {
+        state = initialState;
+      }
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state = initialState;

@@ -1,8 +1,13 @@
 import axios from "axios";
 import { getFromStorage } from "./storageConfig";
 
-const BASE_URL = "http://localhost:5000/api/v1";
-// const BASE_URL = "http://localhost:5000/api/v1";
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1`;
+
+const getHeaders = () =>{
+    if(getFromStorage("accessToken")){
+        return getFromStorage("accessToken")
+    }
+}
 
 export const axiosClient = axios.create({
     baseURL: BASE_URL, 
@@ -15,6 +20,6 @@ export const axiosClient = axios.create({
 export const axiosClientWithHeaders = axios.create({
     baseURL: BASE_URL, 
     headers: {
-        Authorization: `Bearer ${getFromStorage("accessToken")}`
+        Authorization: `Bearer ${getHeaders()}`
     }
 })
