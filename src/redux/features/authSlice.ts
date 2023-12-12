@@ -8,6 +8,7 @@ import axios from "axios";
 
 import { loginService } from "@/services/userService";
 import { clearStorage, setInStorage } from "@/config/storageConfig";
+import Cookie from 'js-cookie';
 
 type InitialState = {
   isAuth: boolean;
@@ -35,12 +36,15 @@ export const auth = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      console.log(action);
 
       if (action?.payload?.success && action?.payload?.token) {
+
+        Cookie.set('token', action?.payload?.token)
+
+        // setInStorage("accessToken", action?.payload?.token);
+
         state.user.token = action?.payload?.token;
         state.isAuth = true;
-        setInStorage("accessToken", action?.payload?.token);
       } else {
         state = initialState;
       }

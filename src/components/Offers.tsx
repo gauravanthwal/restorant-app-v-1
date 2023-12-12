@@ -8,14 +8,15 @@ import { getFromStorage } from "@/config/storageConfig";
 
 const Offers = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state: any) => state.auth);
-
+  const { isAuth, user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
-    if (isAuth && getFromStorage("accessToken")) {
-      dispatch(fetchCartItems());
-    }
-  },[isAuth]);
+    setTimeout(() => {
+      if (user && user?.token) {
+        dispatch(fetchCartItems());
+      }
+    }, 1000);
+  }, []);
   return (
     <div className="bg-black h-screen flex flex-col md:flex-row md:justify-between md:bg-[url('/offerBg.png')] md:h-[70vh]">
       {/* TEXT CONTAINER */}

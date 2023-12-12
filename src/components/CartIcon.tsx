@@ -5,12 +5,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const CartIcon = () => {
-  const { cartItems } = useSelector((state: any) => state.cart);
+  const { cartItems } = useSelector((state: any) => state?.cart);
   return (
     <Link href={"/cart"} className="">
       <div className="flex">
         <span>{CartIcons}</span>
-        <span> ({cartItems?.length > 0 ? cartItems.length : 0})</span>
+        <span> ({cartItems?.length > 0 ? cartItems?.length : 0})</span>
       </div>
     </Link>
   );

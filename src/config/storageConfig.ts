@@ -1,3 +1,5 @@
+import Cookie from "js-cookie";
+
 export const setInStorage = (key: string, value: any) => {
   if (typeof window !== "undefined" && window.localStorage) {
     localStorage.setItem(key, value);
@@ -11,6 +13,7 @@ export const getFromStorage = (key: string) => {
 };
 
 export const clearStorage = () => {
+  Cookie.remove("token");
   if (typeof window !== "undefined" && window.localStorage) {
     localStorage.clear();
   }
