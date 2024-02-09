@@ -5,20 +5,21 @@ import CountDown from "./CountDown";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartItems } from "@/redux/features/cartSlice";
 import { getFromStorage } from "@/config/storageConfig";
+import Loader from "./ui/Loader";
 
 const Offers = () => {
   const dispatch = useDispatch();
   const { isAuth, user } = useSelector((state: any) => state.auth);
+  const { isLoadingCart} = useSelector((state: any) => state.cart);
 
   useEffect(() => {
-    setTimeout(() => {
       if (user && user?.token) {
         dispatch(fetchCartItems());
       }
-    }, 1000);
   }, []);
   return (
     <div className="bg-black h-screen flex flex-col md:flex-row md:justify-between md:bg-[url('/offerBg.png')] md:h-[70vh]">
+      {isLoadingCart && <Loader/>}
       {/* TEXT CONTAINER */}
       <div className="flex-1 w-full flex flex-col justify-center items-center gap-8 p-6">
         <h1 className="text-white text-center text-5xl font-bold lg:text-6xl">

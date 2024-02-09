@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/ui/Loader";
 import { loginUser } from "@/redux/features/authSlice";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isAuth } = useSelector((state: any) => state.auth);
+
+  const { isAuth, isLoading } = useSelector((state: any) => state.auth);
   const [formValue, setFormValue] = useState({ email: "", password: "" });
   const { email, password } = formValue;
 
@@ -31,20 +33,14 @@ const LoginPage = () => {
   }, [isAuth, router]);
 
   return (
-    <div className="p-4 h-[100vh] flex items-center justify-center">
-      {/* Box  */}
-      <div className="h-full md:w-[70%] shadow-2xl flex flex-col md:flex-row">
-        {/* Image Container */}
-        <div className="relative h-full w-full md:h-full md:w-1/2">
-          <Image src={"/loginBg.png"} alt="" fill className="object-cover" />
-        </div>
-        {/* Form Container */}
-        <div className="p-10 flex flex-col gap-8 md:w-1/2">
-          <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
-          <p>Log into your account or create a new one using social buttons</p>
+    <div className="bg-[url('/food.webp')] h-screen bg-cover">
+      {isLoading && <Loader/> }
+      <div className="flex h-screen justify-center items-center">
+        <div className="flex flex-col gap-8 bg-white px-12 py-12 shadow-xl rounded-lg max-w-[600px] min-w-[500px]">
+          <p className="text-2xl font-bold text-center">Login In</p>
 
-          <button className="flex ring-1 ring-orange-100 border border-black">
-            <div className="flex justify-center items-center h-full py-2 px-4">
+          <button className="flex ring-1 ring-orange-100 border border-black rounded-xl">
+            <div className="flex justify-center items-center p-3">
               <Image
                 src={"/google.png"}
                 alt=""
@@ -53,7 +49,7 @@ const LoginPage = () => {
                 className="object-contain"
               />
             </div>
-            <div className="bg-blue-500 hover:opacity-90 text-gray-100 w-full p-4">
+            <div className="bg-blue-500 hover:opacity-90 text-gray-100 w-full p-4 rounded-tr-xl rounded-br-xl">
               Sign in with Google
             </div>
           </button>
@@ -70,7 +66,7 @@ const LoginPage = () => {
             <div className="my-2">
               <label htmlFor="email">Email</label>
               <input
-                className="border block w-full px-6 py-4 border-black outline-none"
+                className="border block w-full px-6 py-4 border-black outline-none rounded-lg"
                 type="text"
                 value={email}
                 id="email"
@@ -82,7 +78,7 @@ const LoginPage = () => {
             <div className="my-4">
               <label htmlFor="password">Password</label>
               <input
-                className="border block w-full px-6 py-4 border-black outline-none"
+                className="border block w-full px-6 py-4 border-black outline-none rounded-lg"
                 type="password"
                 value={password}
                 id="password"
@@ -93,24 +89,25 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
-              className="flex w-full gap-4 p-4 bg-gray-800 hover:bg-gray-700 transition-all ease-in-out  justify-center"
+              className="flex w-full gap-4 p-4 bg-gray-800 hover:bg-gray-700 transition-all ease-in-out  justify-center rounded-lg"
             >
               <span className="text-white font-bold">Sign in</span>
             </button>
           </form>
-
-          <p className="text-sm text-right hover:text-blue-500">
-            <Link className="underline" href="/register">
-              Create Account
-            </Link>
-          </p>
-          <p className="text-sm">
-            Have a problem?
-            <Link className="underline" href="/">
-              {" "}
-              Contact us
-            </Link>
-          </p>
+          <div className="flex justify-between">
+            <p className="text-sm">
+              Have a problem?
+              <Link className="underline" href="/">
+                {" "}
+                Contact us
+              </Link>
+            </p>
+            <p className="text-sm text-right hover:text-blue-500">
+              <Link className="underline" href="/register">
+                Create Account
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,6 @@
-import Notification from "@/components/Notification";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import ReduxProvider from "@/redux/Provider";
 import SuperComponent from "@/components/auth/SuperComponent";
 
@@ -24,10 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <SuperComponent>
-            <Notification />
-            <Navbar />
             {children}
-            <Footer />
           </SuperComponent>
         </ReduxProvider>
       </body>

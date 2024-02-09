@@ -9,9 +9,11 @@ import { removeCartFromDB } from "./cartSlice";
 
 type InitialState = {
   myOrders: Array<{}>;
+  isLoadingOrder:boolean;
 };
 const initialState = {
   myOrders: [],
+  isLoadingOrder: false
 } as InitialState;
 
 export const order = createSlice({
@@ -29,8 +31,11 @@ export const order = createSlice({
       if (payload.success) {
       }
       state.myOrders = payload?.orders;
+      state.isLoadingOrder = false;
     });
-    builder.addCase(fetchOrders.rejected, (state, action) => {});
+    builder.addCase(fetchOrders.pending, (state, action) => {
+      state.isLoadingOrder = true;
+    });
   },
 });
 

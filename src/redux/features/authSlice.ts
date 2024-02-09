@@ -8,15 +8,17 @@ import axios from "axios";
 
 import { loginService } from "@/services/userService";
 import { clearStorage, setInStorage } from "@/config/storageConfig";
-import Cookie from 'js-cookie';
+import Cookie from "js-cookie";
 
 type InitialState = {
   isAuth: boolean;
   user: any;
+  isLoading: boolean;
 };
 const initialState = {
   isAuth: false,
   user: {},
+  isLoading: false,
 } as InitialState;
 
 export const auth = createSlice({
@@ -24,8 +26,6 @@ export const auth = createSlice({
   initialState,
   reducers: {
     getTokenFromStorage: (state, action: PayloadAction<{}>) => {
-      setInStorage("accessToken", action?.payload);
-
       state.user.token = action.payload;
       state.isAuth = true;
     },
@@ -36,21 +36,20 @@ export const auth = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-
       if (action?.payload?.success && action?.payload?.token) {
-
-        Cookie.set('token', action?.payload?.token)
-
+        Cookie.set("token", action?.payload?.token);
         // setInStorage("accessToken", action?.payload?.token);
-
+        
         state.user.token = action?.payload?.token;
         state.isAuth = true;
+        state.isLoading = false;
       } else {
+        state.isLoading = false;
         state = initialState;
       }
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
-      state = initialState;
+    builder.addCase(loginUser.pending, (state, action) => {
+      state.isLoading = true;
     });
   },
 });

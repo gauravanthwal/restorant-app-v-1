@@ -13,9 +13,11 @@ import {
 
 type InitialState = {
   cartItems: Array<{}>;
+  isLoadingCart: boolean;
 };
 const initialState = {
   cartItems: [],
+  isLoadingCart: false
 } as InitialState;
 
 export const cart = createSlice({
@@ -39,9 +41,12 @@ export const cart = createSlice({
     // Getting Cart Items
     builder.addCase(fetchCartItems.fulfilled, (state, action) => {
       state.cartItems = action?.payload?.cartItems;
+      state.isLoadingCart = false;
     });
     
-    builder.addCase(fetchCartItems.rejected, (state, action) => {});
+    builder.addCase(fetchCartItems.pending, (state, action) => {
+      state.isLoadingCart = true;
+    });
 
     // // Add To Cart Items
     // builder.addCase(addCartToDB.fulfilled, (state, action) => {

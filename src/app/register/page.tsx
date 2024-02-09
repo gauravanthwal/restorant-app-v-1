@@ -23,24 +23,18 @@ const RegisterPage = () => {
     e.preventDefault();
   };
   return (
-    <div className="p-4 h-[100vh] flex items-center justify-center">
-      {/* Box  */}
-      <div className="h-full md:w-[70%] shadow-2xl rounded-md flex flex-col md:flex-row">
-        {/* Image Container */}
-        <div className="relative h-1/3 w-full md:h-full md:w-1/2">
-          <Image src={"/register.jpg"} alt="" fill className="object-cover" />
-        </div>
-        {/* Form Container */}
-        <div className="p-10 flex flex-col gap-8 md:w-1/2">
-          <h1 className="font-bold text-xl xl:text-3xl">Sign Up</h1>
-          <p>Register new account using social buttons</p>
+    <div className="h-screen bg-[url('/food2.avif')] bg-cover">
+      <div className="flex justify-center items-center h-screen shadow-xl">
+        <div className="p-10 flex flex-col gap-8 bg-white max-w-[600px] rounded-lg">
+          <h1 className="font-bold text-2xl text-center">Sign Up</h1>
+          {/* <p>Register new account using social buttons</p> */}
 
           <form onSubmit={onsubmit}>
             <div className="my-4 flex flex-col md:flex-row justify-between gap-2">
-              <div className="">
+              <div className="flex-1">
                 <label htmlFor="first_name">First Name</label>
                 <input
-                  className="border block w-full px-6 py-4 border-black outline-none"
+                  className="border block w-full px-6 py-4 border-black outline-none rounded-md"
                   type="text"
                   value={first_name}
                   id="first_name"
@@ -49,10 +43,10 @@ const RegisterPage = () => {
                   onChange={onChange}
                 />
               </div>
-              <div className="">
+              <div className="flex-1">
                 <label htmlFor="last_name">Last Name</label>
                 <input
-                  className="border block w-full px-6 py-4 border-black outline-none"
+                  className="border block w-full px-6 py-4 border-black outline-none rounded-md"
                   type="text"
                   value={last_name}
                   id="last_name"
@@ -63,7 +57,7 @@ const RegisterPage = () => {
               </div>
             </div>
             <div className="my-4 flex flex-col md:flex-row justify-between gap-2">
-              <div className="">
+              <div className="flex-1">
                 <label htmlFor="phone">
                   Mobile{" "}
                   <span className="italic text-gray-400 text-sm">
@@ -71,7 +65,7 @@ const RegisterPage = () => {
                   </span>
                 </label>
                 <input
-                  className="border block w-full px-6 py-4 border-black outline-none"
+                  className="border block w-full px-6 py-4 border-black outline-none rounded-md"
                   type="text"
                   value={phone}
                   id="phone"
@@ -80,7 +74,7 @@ const RegisterPage = () => {
                   onChange={onChange}
                 />
               </div>
-              <div className="">
+              <div className="flex-1">
                 <label htmlFor="profile_photo">
                   Profile Photo{" "}
                   <span className="italic text-gray-400 text-sm">
@@ -88,7 +82,7 @@ const RegisterPage = () => {
                   </span>
                 </label>
                 <input
-                  className="border block w-full px-6 py-3 border-black outline-none"
+                  className="border block w-full px-6 py-3 border-black outline-none rounded-md"
                   type="file"
                   value={profile_photo}
                   id="profile_photo"
@@ -101,7 +95,7 @@ const RegisterPage = () => {
             <div className="my-2">
               <label htmlFor="email">Email</label>
               <input
-                className="border block w-full px-6 py-4 border-black outline-none"
+                className="border block w-full px-6 py-4 border-black outline-none rounded-lg"
                 type="text"
                 value={email}
                 id="email"
@@ -113,7 +107,7 @@ const RegisterPage = () => {
             <div className="my-4">
               <label htmlFor="password">Password</label>
               <input
-                className="border block w-full px-6 py-4 border-black outline-none"
+                className="border block w-full px-6 py-4 border-black outline-none rounded-lg"
                 type="password"
                 value={password}
                 id="password"
@@ -122,24 +116,26 @@ const RegisterPage = () => {
                 onChange={onChange}
               />
             </div>
-            <button className="flex w-full gap-4 p-4 bg-gray-800 hover:bg-gray-700 transition-all ease-in-out border-black outline-none justify-center">
+            <button className="flex w-full gap-4 p-4 bg-gray-800 hover:bg-gray-700 transition-all ease-in-out border-black outline-none justify-center rounded-lg">
               <span className="text-white font-bold">Register</span>
             </button>
           </form>
 
-          <p className="text-sm text-right hover:text-blue-500">
-            <Link className="underline" href="/login">
-              Sign In
-            </Link>
-          </p>
+          <div className="flex justify-between items-center">
+            <p className="text-sm">
+              Have a problem?
+              <Link className="underline" href="/">
+                {" "}
+                Contact us
+              </Link>
+            </p>
 
-          <p className="text-sm">
-            Have a problem?
-            <Link className="underline" href="/">
-              {" "}
-              Contact us
-            </Link>
-          </p>
+            <p className="text-sm text-right hover:text-blue-500">
+              <Link className="underline" href="/login">
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

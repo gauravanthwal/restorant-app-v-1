@@ -1,5 +1,6 @@
 "use client";
 import PrivateRoute from "@/components/auth/PrivateRoute";
+import Loader from "@/components/ui/Loader";
 import { checkStatus } from "@/config/helper";
 import { fetchOrders } from "@/redux/features/orderSlice";
 import React, { useEffect } from "react";
@@ -8,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 const OrdersPage = () => {
   const dispatch = useDispatch();
 
-  const { myOrders } = useSelector((state: any) => state.order);
+  const { myOrders, isLoadingOrder } = useSelector((state: any) => state?.order);
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -16,6 +17,7 @@ const OrdersPage = () => {
   return (
     <PrivateRoute>
       <div className="p-4 lg:px-10 xl:px-20">
+        {isLoadingOrder && <Loader />}
         <table className="w-full border-separate border-spacing-3">
           <thead>
             <tr className="text-left">
@@ -53,7 +55,7 @@ const OrdersPage = () => {
                   )}
                   <td className="py-6 px-1">
                     <span
-                    className="p-[3px] text-sm rounded-md"
+                      className="p-[3px] text-sm rounded-md"
                       style={{ background: checkStatus(order?.order_status) }}
                     >
                       {order?.order_status}
