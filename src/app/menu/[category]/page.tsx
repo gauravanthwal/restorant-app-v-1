@@ -1,5 +1,5 @@
 "use client";
-import { getProducts } from "@/redux/features/productSlice";
+import { getProducts } from "@/redux/actions/productAction";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";

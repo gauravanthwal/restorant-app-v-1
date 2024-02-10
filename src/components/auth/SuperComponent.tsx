@@ -1,6 +1,6 @@
 "use client";
 import { getFromStorage } from "@/config/storageConfig";
-import { getTokenFromStorage } from "@/redux/features/authSlice";
+import { getTokenFromStorage } from "@/redux/actions/authAction";
 import React, { useEffect } from "react";
 import Cookie from "js-cookie";
 import {useDispatch, useSelector } from "react-redux";

@@ -1,6 +1,6 @@
 'use client';
 import Loader from "@/components/ui/Loader";
-import { loginUser } from "@/redux/features/authSlice";
+import { loginUser } from "@/redux/actions/authAction";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

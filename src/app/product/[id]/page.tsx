@@ -1,7 +1,7 @@
 "use client";
 import Price from "@/components/Price";
 import { singleProduct } from "@/data/data";
-import { getProductById } from "@/redux/features/productSlice";
+import { getProductById } from "@/redux/actions/productAction";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";

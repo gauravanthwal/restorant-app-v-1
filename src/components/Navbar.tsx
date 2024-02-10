@@ -5,9 +5,9 @@ import Menu from "./Menu";
 import CartIcon from "./CartIcon";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/redux/features/authSlice";
-import { resetCartItems } from "@/redux/features/cartSlice";
-import { resetOrders } from "@/redux/features/orderSlice";
+import { logout } from "@/redux/actions/authAction";
+// import { resetCartItems } from "@/redux/actions/cartAction";
+// import { resetOrders } from "@/redux/actions/ordersAction";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
@@ -17,8 +17,6 @@ const Navbar = () => {
 
   const logoutUser = () => {
     dispatch(logout());
-    dispatch(resetCartItems());
-    dispatch(resetOrders());
     router.push('/login');
   };
   return (

@@ -2,8 +2,8 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewOrder } from "@/redux/features/orderSlice";
-import { fetchCartItems, removeCartFromDB } from "@/redux/features/cartSlice";
+import { createNewOrder } from "@/redux/actions/ordersAction";
+import { fetchCartItems, removeCartFromDB } from "@/redux/actions/cartAction";
 
 const CartComponent = () => {
   const dispatch = useDispatch();

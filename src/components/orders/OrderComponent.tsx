@@ -1,7 +1,7 @@
 "use client";
 import Loader from "@/components/ui/Loader";
 import { checkStatus } from "@/config/helper";
-import { fetchOrders } from "@/redux/features/orderSlice";
+import { fetchOrders } from "@/redux/actions/ordersAction";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import CountDown from "./CountDown";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems } from "@/redux/features/cartSlice";
+import { fetchCartItems } from "@/redux/actions/cartAction";
 import { getFromStorage } from "@/config/storageConfig";
 import Loader from "./ui/Loader";
 
