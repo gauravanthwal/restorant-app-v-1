@@ -11,15 +11,16 @@ import { resetOrders } from "@/redux/features/orderSlice";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: any) => state?.auth && state.auth);
+  const { cartItems } = useSelector((state: any) => state?.cart);
 
   const logoutUser = () => {
     dispatch(logout());
     dispatch(resetCartItems());
     dispatch(resetOrders());
-    router.push('/login');
+    router.push("/login");
   };
   return (
     <div className="h-12 md:h-24 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase lg:px-10 xl:px-20">
@@ -46,18 +47,17 @@ const Navbar = () => {
           <Image src={"/phone.png"} alt="" width={20} height={20} />
           <span>123 456 7890</span>
         </div>
-        {!isAuth ? (<>
-          <Link href={"/login"}>Login</Link>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/menu"}>Menu</Link>
-          {/* <Link href={"/"}>Contact</Link> */}
-        </>
+        {!isAuth ? (
+          <>
+            <Link href={"/login"}>Login</Link>
+            <Link href={"/"}>Home</Link>
+            <Link href={"/menu"}>Menu</Link>
+          </>
         ) : (
           <>
             <Link href={"/"}>Home</Link>
             <Link href={"/menu"}>Menu</Link>
-            {/* <Link href={"/"}>Contact</Link> */}
-            <CartIcon />
+            <CartIcon cartLength={cartItems?.length} />
             <ProfileDropdown logoutUser={logoutUser} />
           </>
         )}
@@ -69,9 +69,9 @@ const Navbar = () => {
 const ProfileDropdown = ({ logoutUser }: any) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const closeMenu = () =>{
-    setShowMenu(false)
-  }
+  const closeMenu = () => {
+    setShowMenu(false);
+  };
   return (
     <div className="relative">
       <button onClick={() => setShowMenu(!showMenu)}>
@@ -80,10 +80,17 @@ const ProfileDropdown = ({ logoutUser }: any) => {
 
       {showMenu && (
         <div className="absolute flex flex-col bg-gray-800 text-white p-4 w-[160px] justify-center right-0 z-50">
-          <Link href={"/orders"} className="my-2 hover:underline  text-center" onClick={closeMenu}>
+          <Link
+            href={"/orders"}
+            className="my-2 hover:underline  text-center"
+            onClick={closeMenu}
+          >
             Orders
           </Link>
-          <button onClick={logoutUser} className="uppercase my-2 hover:underline">
+          <button
+            onClick={logoutUser}
+            className="uppercase my-2 hover:underline"
+          >
             Logout
           </button>
         </div>
@@ -106,8 +113,6 @@ const MenuBar = (
     />
   </svg>
 );
-
-
 
 const XBar = (
   <svg

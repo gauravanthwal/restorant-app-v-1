@@ -1,16 +1,13 @@
 "use clinet";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
 
-const CartIcon = () => {
-  const { cartItems } = useSelector((state: any) => state?.cart);
+const CartIcon = ({cartLength}: any) => {
   return (
     <Link href={"/cart"} className="">
       <div className="flex">
         <span>{CartIcons}</span>
-        <span> ({cartItems?.length > 0 ? cartItems?.length : 0})</span>
+        <span> ({cartLength > 0 ? cartLength : 0})</span>
       </div>
     </Link>
   );
