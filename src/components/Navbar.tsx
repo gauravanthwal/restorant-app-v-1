@@ -14,7 +14,7 @@ const Navbar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: any) => state?.auth && state.auth);
-  const { cartItems } = useSelector((state: any) => state?.cart);
+  const { cartItems } = useSelector((state: any) => state?.cart && state.cart);
 
   const logoutUser = () => {
     dispatch(logout());
@@ -57,7 +57,7 @@ const Navbar = () => {
           <>
             <Link href={"/"}>Home</Link>
             <Link href={"/menu"}>Menu</Link>
-            <CartIcon cartLength={cartItems?.length} />
+            {cartItems && <CartIcon cartLength={cartItems?.length} />}
             <ProfileDropdown logoutUser={logoutUser} />
           </>
         )}
