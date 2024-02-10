@@ -1,5 +1,5 @@
 "use client";
-import { addCartToDB } from "@/redux/features/cartSlice";
+import { addCartToDB } from "@/redux/actions/cartAction";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 

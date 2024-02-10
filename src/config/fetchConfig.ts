@@ -22,7 +22,8 @@ export const axiosClientWithHeaders = axios.create({
 // Request interceptor
 axiosClientWithHeaders.interceptors.request.use(
   (config) => {
-    const accessToken = store.getState()?.auth?.user?.token;
+    const state:any = store.getState()
+    const accessToken = state?.auth?.user?.token;
     if (accessToken) {
       if (config.headers)
         config.headers.Authorization = `Bearer ${accessToken}`;
