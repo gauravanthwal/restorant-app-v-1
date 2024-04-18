@@ -9,9 +9,9 @@ const Notification = () => {
   };
   if (showNotification) {
     return (
-      <div className="h-12 bg-red-500 text-white px-4 py-2  text-sm md:text-base cursor-pointer">
+      <div className="relative h-12 bg-red-500 text-white px-4 py-2  text-sm md:text-base cursor-pointer">
         <p className="text-center">Free delivery for all orders over $50. Order your food now!</p>
-        <button className="absolute top-3 right-3" onClick={hideNotification}>X</button>
+        <button className="absolute px-6 h-full  top-0 right-0 text-white" onClick={hideNotification}>X</button>
       </div>
     );
   }

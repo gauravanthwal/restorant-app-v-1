@@ -14,8 +14,8 @@ export const cartReducer = (state = initialState, action: any) => {
         cartItems: payload.cartItems,
       };
       
-    case Types.user.LOGOUT_USER:
-      return state;
+    case Types.cart.CLEAR_CART_STATE:
+      return initialState;
 
     default:
       return state;

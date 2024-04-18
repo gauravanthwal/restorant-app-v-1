@@ -25,7 +25,7 @@ const RegisterPage = () => {
   return (
     <div className="h-screen bg-[url('/food2.avif')] bg-cover">
       <div className="flex justify-center items-center h-screen shadow-xl">
-        <div className="p-10 flex flex-col gap-8 bg-white max-w-[600px] rounded-lg">
+        <div className="p-10 flex flex-col gap-8 bg-gray-50 max-w-[600px] rounded-lg">
           <h1 className="font-bold text-2xl text-center">Sign Up</h1>
           {/* <p>Register new account using social buttons</p> */}
 

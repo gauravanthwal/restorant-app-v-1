@@ -1,8 +1,8 @@
 import { Types } from "../Types";
 
 const initialState = {
-    myOrders: [],
-    isLoadingOrder: false
+  myOrders: [],
+  isLoadingOrder: false,
 };
 
 export const ordersReducer = (state = initialState, action: any) => {
@@ -14,6 +14,8 @@ export const ordersReducer = (state = initialState, action: any) => {
         myOrders: payload,
       };
 
+    case Types.order.CLEAR_ORDER_STATE:
+      return initialState;
 
     default:
       return state;

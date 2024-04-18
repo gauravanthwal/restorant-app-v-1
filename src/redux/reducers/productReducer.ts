@@ -20,6 +20,9 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: payload,
       };
 
+    case Types.product.CLEAR_PRODUCT_STATE:
+      return initialState;
+
     default:
       return state;
   }

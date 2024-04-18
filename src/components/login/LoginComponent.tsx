@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Loader from "@/components/ui/Loader";
 import { loginUser } from "@/redux/actions/authAction";
 import Image from "next/image";
@@ -11,7 +11,7 @@ const LoginComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const isAuth = useSelector((state: any) => state?.auth?.isAuth);
+  const {isAuth, isLoading} = useSelector((state: any) => state?.auth);
   const [formValue, setFormValue] = useState({ email: "", password: "" });
   const { email, password } = formValue;
 
@@ -30,13 +30,17 @@ const LoginComponent = () => {
     if (isAuth) {
       router.push("/");
     }
-  }, [isAuth, router]);
+  }, [isAuth]);
   return (
     <div className="bg-[url('/food.webp')] h-screen bg-cover">
-      {/* {isLoading && <Loader/> } */}
+      {isLoading && <Loader/> }
       <div className="flex h-screen justify-center items-center">
-        <div className="flex flex-col gap-8 bg-white px-12 py-12 shadow-xl rounded-lg max-w-[600px] min-w-[500px]">
+        <div className="flex flex-col gap-4 bg-white px-6 md:px-12 py-12 shadow-xl rounded-lg max-w-[600px] mx-2 w-full md:min-w-[500px]">
           <p className="text-2xl font-bold text-center">Login In</p>
+
+          <p className="text-gray-500 text-sm text-end underline">
+            <Link href={"/"}>Skip Login for now</Link>
+          </p>
 
           <button className="flex ring-1 ring-orange-100 border border-black rounded-xl">
             <div className="flex justify-center items-center p-3">
@@ -55,7 +59,7 @@ const LoginComponent = () => {
 
           <div className="">
             <p className="text-center">
-              <span className="border-gray-300 border-b">
+              <span className="text-gray-700">
                 Or Sign in with Email
               </span>
             </p>

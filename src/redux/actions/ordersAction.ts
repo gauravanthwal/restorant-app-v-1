@@ -31,8 +31,8 @@ export const fetchOrders:any = () => async (dispatch: any) => {
   } catch (error) {}
 };
 
-export const logout = () => async (dispatch: any) => {
+export const clearOrderState: any = () => async (dispatch: any) => {
   dispatch({
-    type: Types.user.LOGOUT_USER,
+    type: Types.order.CLEAR_ORDER_STATE,
   });
 };

@@ -1,13 +1,17 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewOrder } from "@/redux/actions/ordersAction";
 import { fetchCartItems, removeCartFromDB } from "@/redux/actions/cartAction";
+import { makePaymentWithRazorpayService } from "@/services/payment/razorpayPaymentService";
+import { makePaymentWithStripe } from "@/services/payment/stripePaymentService";
 
 const CartComponent = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: any) => state?.cart?.cartItems);
+
+  const [loader, setLoader] = useState(false);
 
   const calculateTotalPrice = () => {
     return cartItems.reduce(
@@ -20,15 +24,31 @@ const CartComponent = () => {
     dispatch(removeCartFromDB(product));
   };
 
-  const orderNow = () => {
+  // PAYMENT WITH STRIPE
+  const initiateStripePayment = () => {
+    let paymentDetails = loadPaymentDetails();
+    makePaymentWithStripe(cartItems);
+  };
+
+  // PAYMENT WITH RAZORPAY
+  const initiateRazorpayPayment = () => {
+    let paymentDetails = loadPaymentDetails();
+    // console.log((paymentDetails));
+
+    makePaymentWithRazorpayService(paymentDetails, setLoader);
+  };
+
+  const loadPaymentDetails = () => {
     if (cartItems.length > 0) {
+      const paymentDetails: any = [];
       cartItems.forEach((item: any) => {
         const payload = {
           product_id: item.product._id,
           quantity: item.quantity,
         };
-        dispatch(createNewOrder(payload));
+        paymentDetails.push(payload);
       });
+      return paymentDetails;
     }
   };
 
@@ -96,7 +116,7 @@ const CartComponent = () => {
             </span>
           </div>
           <button
-            onClick={orderNow}
+            onClick={initiateStripePayment}
             className="bg-red-500 text-white p-3 rounded-md w-1/2 self-end"
           >
             CHECKOUT

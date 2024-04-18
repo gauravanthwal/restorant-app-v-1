@@ -16,7 +16,7 @@ const Offers = () => {
       if (user && user?.token) {
         dispatch(fetchCartItems());
       }
-  }, []);
+  }, [user.token]);
   return (
     <div className="bg-black h-screen flex flex-col md:flex-row md:justify-between md:bg-[url('/offerBg.png')] md:h-[70vh]">
       {isLoadingCart && <Loader/>}
