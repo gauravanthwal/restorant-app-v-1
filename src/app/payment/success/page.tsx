@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const page = () => {
+const PaymentSuccess = () => {
   const router = useRouter();
   return (
     <div className="flex items-center justify-center mt-16">
@@ -37,4 +37,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default PaymentSuccess;

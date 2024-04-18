@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewOrder } from "@/redux/actions/ordersAction";
 import { fetchCartItems, removeCartFromDB } from "@/redux/actions/cartAction";
-import { makePaymentWithRazorpayService } from "@/services/payment/razorpayPaymentService";
+// import { makePaymentWithRazorpayService } from "@/services/payment/razorpayPaymentService";
 import { makePaymentWithStripe } from "@/services/payment/stripePaymentService";
 
 const CartComponent = () => {
@@ -32,10 +32,10 @@ const CartComponent = () => {
 
   // PAYMENT WITH RAZORPAY
   const initiateRazorpayPayment = () => {
-    let paymentDetails = loadPaymentDetails();
-    // console.log((paymentDetails));
+    // let paymentDetails = loadPaymentDetails();
+    // // console.log((paymentDetails));
 
-    makePaymentWithRazorpayService(paymentDetails, setLoader);
+    // makePaymentWithRazorpayService(paymentDetails, setLoader);
   };
 
   const loadPaymentDetails = () => {
